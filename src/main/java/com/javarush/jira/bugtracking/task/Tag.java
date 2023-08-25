@@ -1,9 +1,7 @@
 package com.javarush.jira.bugtracking.task;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.javarush.jira.common.model.BaseEntity;
+import jakarta.persistence.*;
 import lombok.*;
 
 
@@ -12,17 +10,29 @@ import lombok.*;
 @Setter
 @ToString
 @NoArgsConstructor
-@AllArgsConstructor
+
 @Builder
 @Entity
-public class Tag {
+public class Tag extends BaseEntity {
 
-    @Id
-    @Column(name = "task_id")
-    int task;
+
+    @ManyToOne
+    @JoinColumn(name = "task_id")
+    Task taskId;
 
 
     @Column(name = "tag")
     String tag;
 
+
+    public Tag(Task taskId, String tag) {
+	this.taskId = taskId;
+	this.tag = tag;
+    }
+
+
+    public Tag(Long id, String tag) {
+	super(id);
+	this.tag = tag;
+    }
 }

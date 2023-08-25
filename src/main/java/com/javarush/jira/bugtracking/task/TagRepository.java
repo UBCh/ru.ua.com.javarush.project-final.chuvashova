@@ -1,14 +1,13 @@
 package com.javarush.jira.bugtracking.task;
 
 import com.javarush.jira.common.BaseRepository;
-import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-@Repository
+
 @Transactional(readOnly = true)
 public interface TagRepository extends BaseRepository<Tag> {
 
@@ -22,7 +21,7 @@ public interface TagRepository extends BaseRepository<Tag> {
 
     List<Tag> findAll();
 
-    Set<Tag> findAllByID(long id);
+    Set<Tag> findAllByTaskId(Task taskId);
 
 
     long count();
