@@ -202,15 +202,18 @@
                         <id>copy-resources</id>
                         <phase>validate</phase>
                         <goals>
-                            <goal>copy-resources
-                            </goal>
+                            <goal>copy-resources</goal>
                         </goals>
                         <configuration>
-                            <outputDirectory>${}basedir}/target/resources</outputDirectory>
+                            <outputDirectory>
+                                ${basedir}/target/resources
+                            </outputDirectory>
                             <resources>
                                 <resource>
-                                    <directory>./resources</directory>
-                                    <filtering>tru</filtering>
+                                    <directory>./resources/</directory>
+                                    <includes>
+                                        <include>**/*.*</include>
+                                    </includes>
                                 </resource>
                             </resources>
                         </configuration>
