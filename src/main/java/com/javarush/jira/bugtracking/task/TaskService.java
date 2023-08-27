@@ -175,16 +175,37 @@ public class TaskService {
     }
 
 
-    public void addTagToTask(Task task, Tag tag) {
+    public Task addTagToTask(Task task, Tag tag) {
 	Set<@Size(min = 2, max = 32) String> tags = task.getTags();
 	tags.add(tag.getTag());
 	task.setTags(tags);
-	taskRepository.save(task);
+	return taskRepository.save(task);
     }
 
 
-    public void addTagInTable(Tag tag) {
-	tagRepository.save(tag);
+    public Tag addTagInTable(Tag tag) {
+	return tagRepository.save(tag);
     }
 
+
+    public List<Tag> finByAllTags() {
+	return tagRepository.findAll();
+    }
+
+
+    public Set<String> getAllTagsFoTask(Long idTask) {
+	Task task = taskRepository.findFullById(idTask).orElseThrow();
+	return task.getTags();
+    }
+
+
+    public Tag getByIdTag(Long idTag) {
+	return tagRepository.findById(idTag).orElseThrow();
+    }
+
+
+    public void deleteTag(Long idTag) {
+	Tag tag = tagRepository.findById(idTag).orElseThrow();
+	tagRepository.delete(tag);
+    }
 }
