@@ -21,6 +21,7 @@
         <mapstruct.version>1.5.3.Final</mapstruct.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <maven.test.skip>true</maven.test.skip>
     </properties>
 
     <dependencies>
@@ -192,6 +193,29 @@
                 <configuration>
                     <argLine>-Dfile.encoding=UTF-8</argLine>
                 </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>2.6</version>
+                <executions>
+                    <execution>
+                        <id>copy-resources</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>copy-resources
+                            </goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${}basedir}/target/resources</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>./resources</directory>
+                                    <filtering>tru</filtering>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
