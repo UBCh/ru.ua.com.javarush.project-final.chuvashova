@@ -1,6 +1,5 @@
 version: '3.8'
-networks:
-  network_project_jira:
+
 services:
 
   db:
