@@ -24,75 +24,86 @@ import org.springframework.web.servlet.mvc.UrlFilenameViewController;
 import java.time.Duration;
 import java.util.Properties;
 
-//@EnableWebMvc : http://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#boot-features-spring-mvc-auto-configuration
+//@EnableWebMvc
+// : http://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#boot-features-spring-mvc-auto-configuration
 @EnableAutoConfiguration
 @Configuration
 @AllArgsConstructor
 @Slf4j
 public class MvcConfig implements WebMvcConfigurer {
+
     private final AppProperties appProperties;
+
 
     // Add authUser to view model
     private final HandlerInterceptor authInterceptor = new WebRequestHandlerInterceptorAdapter(new WebRequestInterceptor() {
-        @Override
-        public void postHandle(WebRequest request, ModelMap model) {
-            if (model != null) {
-                AuthUser authUser = AuthUser.safeGet();
-                if (authUser != null) {
-                    model.addAttribute("authUser", authUser);
-                }
-            }
-        }
+	@Override
+	public void postHandle(WebRequest request, ModelMap model) {
+	    if (model != null) {
+		AuthUser authUser = AuthUser.safeGet();
+		if (authUser != null) {
+		    model.addAttribute("authUser", authUser);
+		}
+	    }
+	}
 
-        @Override
-        public void afterCompletion(WebRequest request, Exception ex) {
-        }
 
-        @Override
-        public void preHandle(WebRequest request) {
-        }
+	@Override
+	public void afterCompletion(WebRequest request, Exception ex) {
+	}
+
+
+	@Override
+	public void preHandle(WebRequest request) {
+	}
     });
+
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(authInterceptor).excludePathPatterns("/api/**");
+	registry.addInterceptor(authInterceptor).excludePathPatterns("/api/**");
     }
+
 
     //  http://www.codejava.net/frameworks/spring/spring-mvc-url-based-view-resolution-with-urlfilenameviewcontroller-example
     @Bean
     public SimpleUrlHandlerMapping getUrlHandlerMapping() {
-        return new SimpleUrlHandlerMapping() {{
-            setMappings(new Properties() {{
-                put("/view/**", new UrlFilenameViewController());
-            }});
-            setOrder(0);
-            setInterceptors(authInterceptor);
-        }};
+	return new SimpleUrlHandlerMapping() {{
+	    setMappings(new Properties() {{
+		put("/view/**", new UrlFilenameViewController());
+	    }});
+	    setOrder(0);
+	    setInterceptors(authInterceptor);
+	}};
     }
+
 
     //  https://springdoc.org/index.html#how-can-i-deploy-springdoc-openapi-ui-behind-a-reverse-proxy
     @Bean
     ForwardedHeaderFilter forwardedHeaderFilter() {
-        return new ForwardedHeaderFilter();
+	return new ForwardedHeaderFilter();
     }
+
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/").setViewName("index");
+	registry.addViewController("/").setViewName("index");
     }
+
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/static/**").addResourceLocations("file:./resources/static/");
-        registry.setOrder(Integer.MAX_VALUE);
+	registry.addResourceHandler("/static/**").addResourceLocations("file:./resources/static/");
+	registry.setOrder(Integer.MAX_VALUE);
     }
+
 
     @Bean
 //    https://stackoverflow.com/a/46966350/548473
     public RestTemplate restTemplate(RestTemplateBuilder restTemplateBuilder) {
-        return restTemplateBuilder
-                .setConnectTimeout(Duration.ofSeconds(10))
-                .setReadTimeout(Duration.ofSeconds(10))
-                .build();
+	return restTemplateBuilder
+		.setConnectTimeout(Duration.ofSeconds(10))
+		.setReadTimeout(Duration.ofSeconds(10))
+		.build();
     }
 }
