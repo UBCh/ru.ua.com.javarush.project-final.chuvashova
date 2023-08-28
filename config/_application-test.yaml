@@ -3,7 +3,27 @@ app:
   host-url: http://localhost
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/jira
+    url: jdbc:h2:mem:jira-test
     username: jira
     password: JiraRush
-
+  hibernate:
+    dialect: H2Dialect
+  #password=JiraRush
+  #dialect=org.hibernate.dialect.H2Dialect
+  #spring.jpa.defer-datasource-initialization=true
+  #  spring.jpa.hibernate.ddl-auto=update
+  # adding this line seems to make no difference (perhaps, it targets the default DS, not the one used by Liquibase and tests), but using @Sql to execute 'use corp;' statement before tests works!
+  # spring.jpa.properties.hibernate.default_schema=corp
+  # LIQUIBASE (LiquibaseProperties)
+  #spring.liquibase.change-log=dbTest/changelog.sql
+  #spring.liquibase.url=jdbc:h2:mem:jiratest;DB_CLOSE_DELAY=-1;INIT=CREATE SCHEMA IF NOT EXISTS jiratest;
+  #spring.liquibase.user=jira
+  #spring.liquibase.password=JiraRush
+  #spring.liquibase.default-schema=jiratest
+  ##spring.liquibase.liquibase-tablespace=CORP
+  #spring.liquibase.drop-first=true
+  #spring.jpa.properties.hibernate.id.new_generator_mappings=false
+  #hibernate.dialect=org.hibernate.dialect.H2Dialect
+#  spring.datasource.url=jdbc:h2:mem:jira-test
+#  spring.datasource.username=jira
+#  spring.datasource.password=
