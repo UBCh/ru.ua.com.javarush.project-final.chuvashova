@@ -1,6 +1,5 @@
 -- populate users
-DELETE
-FROM USERS;
+DELETE FROM USERS;
 alter
 sequence USERS_ID_SEQ restart with 1;
 insert into USERS (EMAIL, PASSWORD, FIRST_NAME, LAST_NAME, DISPLAY_NAME)
