@@ -5,9 +5,9 @@ spring:
   datasource:
     url: jdbc:h2:mem:jira-test
     username: jira
-    password: JiraRush
-  hibernate:
-    dialect: H2Dialect
+    password:
+  #  hibernate:
+  #    dialect: H2Dialect
   #password=JiraRush
   #dialect=org.hibernate.dialect.H2Dialect
   #spring.jpa.defer-datasource-initialization=true
