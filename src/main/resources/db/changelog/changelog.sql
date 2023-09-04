@@ -281,7 +281,7 @@ values ('todo', 'ToDo', 3, 'in_progress,canceled'),
        ('done', 'Done', 3, 'canceled'),
        ('canceled', 'Canceled', 3, null);
 
--- changeset gkislin:users_add_on_delete_cascade
+--changeset gkislin:users_add_on_delete_cascade
 
 alter table ACTIVITY
     drop constraint FK_ACTIVITY_USERS,

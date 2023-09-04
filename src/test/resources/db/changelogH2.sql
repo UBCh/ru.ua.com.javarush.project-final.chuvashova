@@ -1,18 +1,25 @@
-CREATE SCHEMA testdb;
+--changeset kmpk:init_schema
+CREATE SCHEMA jiratest;
 
-create table PROJECT
+CREATE TABLE PROJECT
 (
-    ID          bigint primary key,
-    CODE        varchar(32)   not null
-        constraint UK_PROJECT_CODE unique,
-    TITLE       varchar(1024) not null,
-    DESCRIPTION varchar(4096) not null,
-    TYPE_CODE   varchar(32)   not null,
+    id          number primary key,
+    code        varchar(32),
+    title       varchar(1024),
+    description varchar(4096),
+    TYPE_CODE   varchar(32),
     STARTPOINT  timestamp,
     ENDPOINT    timestamp,
-    PARENT_ID   bigint,
-    constraint FK_PROJECT_PARENT foreign key (PARENT_ID) references PROJECT (ID) on delete cascade
+    PARENT_ID   number
 );
+
+INSERT into PROJECT (code, title, description, type_code, parent_id)
+values ('PROJECT-1', 'test project 1', 'task_tracker', null);
+INSERT into PROJECT (code, title, description, type_code, parent_id)
+values ('PR2', 'PROJECT-2', 'test project 2', 'task_tracker', 1);
+
+--changeset CREATE TABLE PROJECT
+
 
 create table MAIL_CASE
 (
@@ -23,6 +30,8 @@ create table MAIL_CASE
     RESULT    varchar(255) not null,
     TEMPLATE  varchar(255) not null
 );
+
+
 
 create table SPRINT
 (
@@ -76,7 +85,7 @@ create table CONTACT
     CODE  varchar(32)  not null,
     VALUE varchar(256) not null,
 
-    constraint FK_CONTACT_PROFILE foreign key (ID) references PROFILE (ID) on delete cascade
+
 );
 
 create table TASK
@@ -279,9 +288,7 @@ values (1, 'skype', 'userSkype'),
        (2, 'vk', 'adminVk');
 
 
-insert into PROJECT (code, title, description, type_code, parent_id)
-values ('PR1', 'PROJECT-1', 'test project 1', 'task_tracker', null),
-       ('PR2', 'PROJECT-2', 'test project 2', 'task_tracker', 1);
+
 
 insert into SPRINT (status_code, startpoint, endpoint, project_id)
 values ('finished', '2023-05-01 08:05:10', '2023-05-07 17:10:01', 1),

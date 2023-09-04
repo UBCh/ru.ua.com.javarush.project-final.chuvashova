@@ -1,0 +1,11 @@
+databaseChangeLog:
+  - include:
+      file: db/changelog/changelogH2.sql
+  - include:
+      file: db/changelog/changelogH2_2.sql
+  - include:
+      file: db/changelog/changelogH2_3.sql
+  - include:
+      file: db/changelog/changelogH2_4.sql
+  - include:
+      file: db/changelog/dataH2.sql
