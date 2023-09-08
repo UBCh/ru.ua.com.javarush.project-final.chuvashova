@@ -1,2 +1,2 @@
 --changeset kmpk:init_schema
-CREATE SCHEMA jiratest;
+CREATE SCHEMA testdb;
