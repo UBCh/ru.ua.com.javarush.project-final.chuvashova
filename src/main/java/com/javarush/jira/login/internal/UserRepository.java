@@ -23,7 +23,8 @@ public interface UserRepository extends BaseRepository<User> {
     @CachePut(key = "#user.email")
     User save(User user);
 
+    @Query("select u from User u where u.email = ?1")
     default User getExistedByEmail(String email) {
-        return findByEmailIgnoreCase(email).orElseThrow(() -> new NotFoundException("User with email=" + email + " not found"));
+	return findByEmailIgnoreCase(email).orElseThrow(() -> new NotFoundException("User with email=" + email + " not found"));
     }
 }

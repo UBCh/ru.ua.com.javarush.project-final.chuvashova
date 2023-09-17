@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional(readOnly = true)
 public interface ProfileRepository extends BaseRepository<Profile> {
     default Profile getOrCreate(long id) {
-        return findById(id).orElseGet(() -> new Profile(id));
+	Profile profile = findById(id).orElseGet(() -> new Profile(id));
+	return profile;
     }
 }

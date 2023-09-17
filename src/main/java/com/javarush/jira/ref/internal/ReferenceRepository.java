@@ -11,8 +11,11 @@ import java.util.Optional;
 
 @Transactional(readOnly = true)
 public interface ReferenceRepository extends BaseRepository<Reference> {
-  
+
+
+    @Query("select r from Reference r order by r.id")
     List<Reference> findAllByOrderByIdAsc();
+
 
     @Query("SELECT r FROM Reference r WHERE r.refType=:type")
     List<Reference> getByType(RefType type);

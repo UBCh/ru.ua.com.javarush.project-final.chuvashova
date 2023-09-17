@@ -11,7 +11,7 @@ CREATE TEMPORARY TABLE IF NOT EXISTS PROJECT
 );
 
 INSERT into PROJECT
-values (1, 'PROJECT-1', 'test project 1', 'task_tracker', null, null, null, 2);
+values (1, 'PROJECT-1', 'test project 1', 'task_tracker', 'task_tracker', null, null, 2);
 INSERT into PROJECT
 values (2, 'PR2', 'PROJECT-2', 'test project 2', 'task_tracker', null, null, 1);
 
@@ -27,36 +27,37 @@ CREATE TEMPORARY TABLE IF NOT EXISTS MAIL_CASE
     TEMPLATE  varchar(255) not null
 );
 
-CREATE TEMPORARY TABLE IF NOT EXISTS SPRINT
+CREATE TEMPORARY TABLE IF NOT EXISTS sprint
 (
     id          number primary key,
-    STATUS_CODE varchar(32)   not null,
+    STATUS_CODE varchar(32) not null,
     STARTPOINT  timestamp,
     ENDPOINT    timestamp,
-    TITLE       varchar(1024) not null,
-    PROJECT_ID  bigint        not null
+    code        varchar(32),
+    PROJECT_ID  bigint      not null
 );
-insert into SPRINT
-values (1, 'finished', '2023-05-01 08:05:10', '2023-05-07 17:10:01', 'SP-1.001', 1),
+
+
+insert into sprint
+values (1, 'finished', '2023-05-01 08:05:10', '2023-05-07 17:10:02', 'SP-1.001', 1),
        (2, 'active', '2023-05-01 08:06:00', null, 'SP-1.002', 1),
-       (3, 'active', '2023-05-01 08:07:00', null, 'SP-1.003', 2),
-       (4, 'planning', '2023-05-01 08:08:00', null, 'SP-1.004', 3),
+       (3, 'active', '2023-05-01 08:07:00', null, 'SP-1.003', 1),
+       (4, 'planning', '2023-05-01 08:08:00', null, 'SP-1.004', 1),
        (5, 'active', '2023-05-10 08:06:00', null, 'SP-2.001', 4),
-       (6, 'planning', '2023-05-10 08:07:00', null, 'SP-2.002', 5),
-       (7, 'planning', '2023-05-10 08:08:00', null, 'SP-2.003', 6);
+       (6, 'planning', '2023-05-10 08:07:00', null, 'SP-2.002', 5);
 
 CREATE TEMPORARY TABLE IF NOT EXISTS reference
 (
-    ID         bigint primary key,
-    CODE       varchar(32)   not null,
-    REF_TYPE   smallint      not null,
-    ENDPOINT   timestamp,
-    STARTPOINT timestamp,
-    TITLE      varchar(1024) not null,
-    AUX        varchar
+    id         bigint primary key,
+    code       varchar(32)   not null,
+    ref_type   smallint      not null,
+    endpoint   timestamp,
+    startpoint timestamp,
+    title      varchar(1024) not null,
+    aux        varchar
 
 );
-insert into reference (ID, CODE, TITLE, REF_TYPE)
+insert into reference (id, code, title, ref_type)
 -- TASK
 values (1, 'task', 'Task', 2),
        (2, 'story', 'Story', 2),
@@ -90,7 +91,7 @@ values (1, 'task', 'Task', 2),
        (25, 'low', 'Low', 7),
        (26, 'neutral', 'Neutral', 7);
 
-insert into reference (ID, CODE, TITLE, REF_TYPE, AUX)
+insert into reference (id, code, title, ref_type, aux)
 -- MAIL_NOTIFICATION
 values (27, 'assigned', 'Assigned', 6, '1'),
        (28, 'three_days_before_deadline', 'Three days before deadline', 6, '2'),
@@ -124,8 +125,8 @@ CREATE TEMPORARY TABLE IF NOT EXISTS task
 );
 
 insert into task
-values (1, 'Data', 'epic', 'in_progress', 1, 1, 1, '2023-05-15 09:05:10', null),
-       (2, 'Trees', 'epic', 'in_progress', 1, 1, 1, '2023-05-15 12:05:10', null),
+values (1, 'Data', 'epic', 'ready_for_review', 1, 1, null, '2023-05-15 09:05:10', null),
+       (2, 'Trees', 'epic', 'in_progress', 1, 2, null, '2023-05-15 12:05:10', null),
        (3, 'task-3', 'task', 'ready_for_test', 2, 5, 1, '2023-06-14 09:28:10', null),
        (4, 'task-4', 'task', 'ready_for_review', 2, 5, 1, '2023-06-14 09:28:10', null),
        (5, 'task-5', 'task', 'todo', 2, 5, 1, '2023-06-14 09:28:10', null),
@@ -148,25 +149,33 @@ values (1, 'skype', 'userSkype'),
        (5, 'tg', 'adminTg'),
        (6, 'vk', 'adminVk');
 
-CREATE TEMPORARY TABLE IF NOT EXISTS USERS
+CREATE TEMPORARY TABLE IF NOT EXISTS users
 (
     id           number primary key,
-    EMAIL        varchar(128),
-    PASSWORD     varchar(128),
-    FIRST_NAME   varchar(32),
-    LAST_NAME    varchar(32),
-    DISPLAY_NAME varchar(32),
-    role         varchar(128)
+    email        varchar(128),
+    password     varchar(128),
+    first_name   varchar(32),
+    last_name    varchar(32),
+    display_name varchar(32),
+    role         varchar(128),
+    endpoint     varchar(128),
+    startpoint   varchar(128)
 );
 
 
 
-insert into USERS
-values (1, 'user@gmail.com', '{noop}password', 'userFirstName', 'userLastName', 'userDisplayName', 'user'),
-       (2, 'admin@gmail.com', '{noop}admin', 'adminFirstName', 'adminLastName', 'adminDisplayName', 'admin'),
-       (3, 'guest@gmail.com', '{noop}guest', 'guestFirstName', 'guestLastName', 'guestDisplayName', 'guest'),
-       (4, 'manager@gmail.com', '{noop}manager', 'managerFirstName', 'managerLastName', 'managerDisplayName',
-        'manager');
+insert into users
+values (1, 'user@gmail.com', '{noop}password', 'userFirstName', 'userLastName', 'userDisplayName', 'user',
+        '2023-05-15 12:05:10',
+        null),
+       (2, 'admin@gmail.com', '{noop}admin', 'adminFirstName', 'adminLastName', 'adminDisplayName', 'admin',
+        '2023-05-15 12:05:10',
+        null),
+       (3, 'guest@gmail.com', '{noop}guest', 'guestFirstName', 'guestLastName', 'guestDisplayName', 'guest',
+        '2023-05-15 12:05:10',
+        null),
+       (4, 'manager@gmail.com', '{noop}manager', 'managerFirstName', 'managerLastName', 'managerDisplayName', 'manager',
+        '2023-05-15 12:05:10', null);
 
 
 CREATE TEMPORARY TABLE IF NOT EXISTS USER_ROLE
@@ -210,7 +219,8 @@ insert into ACTIVITY
 values (1, 1, 1, '2023-05-15 09:05:10', null, 'Data', null, 3, 'epic', 'in_progress', 'low'),
        (2, 2, 1, '2023-05-15 12:25:10', null, 'Data', null, null, null, null, 'normal'),
        (3, 1, 1, '2023-05-15 14:05:10', null, 'Data', null, 4, null, null, null),
-       (4, 1, 2, '2023-05-15 12:05:10', null, 'Trees', 'Trees desc', 4, 'epic', 'in_progress', 'normal');
+       (4, 1, 2, '2023-05-15 12:05:10', null, 'Trees UPD', 'task UPD', 4, 'epic', 'ready_for_review', 'high'),
+       (5, 1, 2, null, null, 'Trees', 'Trees desc', 4, 'epic', 'in_progress', 'normal');
 
 
 

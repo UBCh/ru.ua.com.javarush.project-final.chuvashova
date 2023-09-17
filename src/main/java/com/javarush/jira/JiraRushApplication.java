@@ -17,7 +17,7 @@ public class JiraRushApplication {
 
     }
 
-
+//
 //    @Profile("test")
 //    @Bean(initMethod = "start", destroyMethod = "stop")
 //    public Server h2Server() throws SQLException {
