@@ -40,7 +40,7 @@ public class SprintTestData {
     }
 
     public static SprintTo getNewTo() {
-	return new SprintTo(null, "SP.1-005", "planning", PROJECT1_ID);
+	return new SprintTo(10L, "SP.1-005", "planning", PROJECT1_ID);
     }
 
 

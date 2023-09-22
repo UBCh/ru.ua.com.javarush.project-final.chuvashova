@@ -11,7 +11,7 @@ CREATE TEMPORARY TABLE IF NOT EXISTS PROJECT
 );
 
 INSERT into PROJECT
-values (1, 'PROJECT-1', 'test project 1', 'task_tracker', 'task_tracker', null, null, 2);
+values (1, 'PR1', 'PROJECT-1', 'test project 1', 'task_tracker', null, null, null);
 INSERT into PROJECT
 values (2, 'PR2', 'PROJECT-2', 'test project 2', 'task_tracker', null, null, 1);
 
@@ -125,8 +125,8 @@ CREATE TEMPORARY TABLE IF NOT EXISTS task
 );
 
 insert into task
-values (1, 'Data', 'epic', 'ready_for_review', 1, 1, null, '2023-05-15 09:05:10', null),
-       (2, 'Trees', 'epic', 'in_progress', 1, 2, null, '2023-05-15 12:05:10', null),
+values (1, 'Data', 'epic', 'in_progress', 1, 1, null, '2023-05-15 09:05:10', null),
+       (2, 'Trees', 'epic', 'in_progress', 1, 1, null, '2023-05-15 12:05:10', null),
        (3, 'task-3', 'task', 'ready_for_test', 2, 5, 1, '2023-06-14 09:28:10', null),
        (4, 'task-4', 'task', 'ready_for_review', 2, 5, 1, '2023-06-14 09:28:10', null),
        (5, 'task-5', 'task', 'todo', 2, 5, 1, '2023-06-14 09:28:10', null),

@@ -99,7 +99,7 @@ public class TaskTestData {
     public static final TaskToFull taskToFull1 = new TaskToFull(TASK1_ID, "epic-1", "Data", null, "epic", "in_progress", "normal", null, 4, null, new CodeTo(PROJECT1_ID, "PR1"), new CodeTo(SPRINT1_ID, "SP-1.001"), null);
 
 
-    public static final TaskToFull taskToFull2 = new TaskToFull(TASK2_ID, "epic-2", "Trees", "task UPD", "epic", "in_progress", "high", null, 4, null, new CodeTo(PROJECT1_ID, "PROJECT-1"), new CodeTo(SPRINT1_ID, "SP-1.001"), null);
+    public static final TaskToFull taskToFull2 = new TaskToFull(TASK2_ID, "epic-2", "Trees", "task UPD", "epic", "in_progress", "high", null, 4, null, new CodeTo(PROJECT1_ID, "PR1"), new CodeTo(SPRINT1_ID, "SP-1.001"), null);
 
 
     public static final ActivityTo activityTo1ForTask1 = new ActivityTo(ACTIVITY1_ID, TASK1_ID, USER_ID, null, null, "in_progress", "low", "epic", "Data", null, 3, null);
