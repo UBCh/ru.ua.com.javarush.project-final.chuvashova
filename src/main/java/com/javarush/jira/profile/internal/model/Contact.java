@@ -30,6 +30,7 @@ public class Contact implements HasId {
     @Column(name = "id")
     private Long id;
 
+
     @Id
     @ManyToOne
     @JoinColumn(name = "id")
@@ -37,11 +38,13 @@ public class Contact implements HasId {
     @Transient
     private Profile profile;
 
+
     // link to Reference.code with RefType.CONTACT
     @Id
     @Code
     @Column(name = "code", nullable = false)
     private String code;
+
 
     @NotBlank
     @Size(min = 2, max = 256)
@@ -49,16 +52,20 @@ public class Contact implements HasId {
     @NoHtml
     private String value;
 
+
     public Contact(long id, String code, String value) {
-        this.id = id;
-        this.code = code;
-        this.value = value;
+	this.id = id;
+	this.code = code;
+	this.value = value;
     }
+
 
     @Data
     @NoArgsConstructor
     static class ContactId implements Serializable {
-        private long id;
-        private String code;
+	private long id;
+
+
+	private String code;
     }
 }

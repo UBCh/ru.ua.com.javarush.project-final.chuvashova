@@ -11,7 +11,11 @@ import java.util.Optional;
 
 @Transactional(readOnly = true)
 public interface ReferenceRepository extends BaseRepository<Reference> {
+
+
+    @Query("select r from Reference r order by r.id")
     List<Reference> findAllByOrderByIdAsc();
+
 
     @Query("SELECT r FROM Reference r WHERE r.refType=:type")
     List<Reference> getByType(RefType type);
@@ -20,6 +24,6 @@ public interface ReferenceRepository extends BaseRepository<Reference> {
     Optional<Reference> getByTypeAndCode(RefType type, String code);
 
     default Reference getExistedByTypeAndCode(RefType type, String code) {
-        return getByTypeAndCode(type, code).orElseThrow(() -> new NotFoundException("Ref with type=" + type + ", code=" + code + " not found"));
+	return getByTypeAndCode(type, code).orElseThrow(() -> new NotFoundException("Ref with type=" + type + ", code=" + code + " not found"));
     }
 }

@@ -21,6 +21,7 @@ values ('user@gmail.com', '{noop}password', 'userFirstName', 'userLastName', 'us
        ('max.pain@gmail.com', '{noop}password', 'Максим', 'Дудник', '@MaxPain'),
        ('admin@aws.co', '{noop}password', 'test', 'admin', '@testAdmin');
 
+
 -- 0 DEV
 -- 1 ADMIN
 -- 2 MANAGER
